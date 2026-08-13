@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:/Users/HP/zenni-fitness\" && find . -maxdepth 4 -not -path '*/node_modules*' -not -path '*/.git*' -not -path '*/.expo*' | sort)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"--- README ---\"; cat \"/c/Users/HP/zenni/README.md\"; echo \"--- package.json ---\"; cat \"/c/Users/HP/zenni/package.json\"; echo \"--- fitness-tracker ---\"; ls -la \"/c/Users/HP/zenni/fitness-tracker\"; echo \"--- app ---\"; ls -la \"/c/Users/HP/zenni/app\"; echo \"--- memory dir ---\"; ls -la \"/c/Users/HP/.claude/projects/C--Users-HP-zenni/memory/\" 2>&1)"
+    ]
+  }
+}

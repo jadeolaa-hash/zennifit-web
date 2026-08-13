@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "zenni-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "zenni-app-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "zenni-app", "run", "web"],
+      "port": 8081
+    },
+    {
+      "name": "zenni-fitness-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../zenni-fitness", "run", "web"],
+      "port": 8081
+    }
+  ]
+}

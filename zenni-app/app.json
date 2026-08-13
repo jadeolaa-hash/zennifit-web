@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Zenni Fitness",
+    "slug": "zenni-fitness",
+    "scheme": "zennifitness",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "backgroundColor": "#121214",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zennifitness.app"
+    },
+    "android": {
+      "package": "com.zennifitness.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#121214",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single",
+      "backgroundColor": "#121214"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-font",
+      "expo-splash-screen",
+      "expo-web-browser"
+    ]
+  }
+}

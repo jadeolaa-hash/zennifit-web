@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# other projects in this repo (not part of the Next.js web app)
+/zenni-app
+/fitness-tracker

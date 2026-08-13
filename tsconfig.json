@@ -23,5 +23,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": "exclude": ["node_modules", "zenni-app", "fitness-tracker"]
+  "exclude": ["node_modules", "zenni-app", "fitness-tracker"]
 }

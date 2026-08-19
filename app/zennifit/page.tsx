@@ -20,6 +20,7 @@ import {
   Flame, PlugZap, Lightbulb, RefreshCw, Trophy, Check, Minus, Plus,
   Instagram, Twitter,
 } from 'lucide-react';
+import { ArticlesMegaMenu } from '@/components/articles-mega-menu';
 
 const RED = '#B01020';
 const HEAD = { fontStyle: 'italic' as const, fontWeight: 800, letterSpacing: '-0.5px' };
@@ -82,6 +83,7 @@ export default function ZenniFitPage() {
         </div>
         <div className="hidden items-center gap-6 text-sm text-neutral-600 md:flex">
           <span className="rounded-md px-3 py-1.5 font-semibold" style={{ color: RED, background: 'rgba(176,16,32,0.06)' }}>App</span>
+          <ArticlesMegaMenu />
           <span>Why Us</span><span>Shop</span><span>Support</span>
           <button className="rounded-md px-4 py-2 text-sm font-semibold text-white" style={{ background: RED }}>Get early access</button>
         </div>

@@ -4,6 +4,7 @@
 
 import Link from 'next/link';
 import { Flame } from 'lucide-react';
+import { ArticlesMegaMenu } from '@/components/articles-mega-menu';
 
 const RED = '#B01020';
 const SALMON = '#C94A3F';
@@ -28,6 +29,7 @@ export default function HomePage() {
           >
             ZenniFit
           </Link>
+          <ArticlesMegaMenu />
         </div>
       </nav>
 

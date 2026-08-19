@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Flame } from 'lucide-react';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ArticlesMegaMenu } from '@/components/articles-mega-menu';
 import { ARTICLE_CATEGORIES } from '@/lib/article-categories';
@@ -17,9 +17,7 @@ export default function ArticlesPage() {
     <main className="min-h-screen bg-white text-neutral-800">
       <nav className="flex items-center justify-between border-b border-neutral-200 px-8 py-4">
         <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px]" style={{ background: RED }}>
-            <Flame size={17} color="#fff" />
-          </div>
+          <Image src="/zf-icon.png" alt="ZenniFitness" width={36} height={36} priority />
           <span className="text-[19px] text-neutral-900" style={HEAD}>ZenniFitness</span>
         </Link>
         <div className="hidden items-center gap-6 text-sm text-neutral-600 md:flex">

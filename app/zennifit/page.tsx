@@ -16,8 +16,9 @@
 // -----------------------------------------------------------------------------
 
 import { useState } from 'react';
+import Image from 'next/image';
 import {
-  Flame, PlugZap, Lightbulb, RefreshCw, Trophy, Check, Minus, Plus,
+  PlugZap, Lightbulb, RefreshCw, Trophy, Check, Minus, Plus,
   Instagram, Twitter,
 } from 'lucide-react';
 import { ArticlesMegaMenu } from '@/components/articles-mega-menu';
@@ -78,7 +79,7 @@ export default function ZenniFitPage() {
       {/* NAV */}
       <nav className="flex items-center justify-between border-b border-neutral-200 px-8 py-4">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px]" style={{ background: RED }}><Flame size={17} color="#fff" /></div>
+          <Image src="/zf-icon.png" alt="ZenniFitness" width={36} height={36} priority />
           <span className="text-[19px] text-neutral-900" style={HEAD}>ZenniFitness</span>
         </div>
         <div className="hidden items-center gap-6 text-sm text-neutral-600 md:flex">
@@ -180,7 +181,7 @@ export default function ZenniFitPage() {
       {/* FOOTER */}
       <footer className="bg-neutral-950 px-6 py-9 text-center">
         <div className="mb-3 flex items-center justify-center gap-2.5">
-          <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px]" style={{ background: RED }}><Flame size={16} color="#fff" /></div>
+          <Image src="/zf-icon.png" alt="ZenniFit" width={30} height={30} loading="eager" />
           <span className="text-[17px] italic text-white" style={{ fontWeight: 500 }}>ZenniFit</span>
         </div>
         <div className="mb-3 flex items-center justify-center gap-4 text-neutral-500">

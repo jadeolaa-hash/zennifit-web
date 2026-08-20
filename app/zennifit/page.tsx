@@ -16,6 +16,7 @@
 // -----------------------------------------------------------------------------
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import {
   PlugZap, Lightbulb, RefreshCw, Trophy, Check, Minus, Plus,
@@ -86,7 +87,7 @@ export default function ZenniFitPage() {
           <span className="rounded-md px-3 py-1.5 font-semibold" style={{ color: RED, background: 'rgba(176,16,32,0.06)' }}>App</span>
           <ArticlesMegaMenu />
           <span>Why Us</span><span>Shop</span><span>Support</span>
-          <button className="rounded-md px-4 py-2 text-sm font-semibold text-white" style={{ background: RED }}>Get early access</button>
+          <Link href="/early-access" className="rounded-md px-4 py-2 text-sm font-semibold text-white no-underline" style={{ background: RED }}>Get early access</Link>
         </div>
       </nav>
 
@@ -97,7 +98,7 @@ export default function ZenniFitPage() {
         <p className="mx-auto mb-6 max-w-xl text-[17px] leading-relaxed text-neutral-600">
           Understand the connection between your recovery and your training — so every session moves you toward your goal. Running, gym and Hyrox in one adaptive plan.
         </p>
-        <button className="rounded-lg px-7 py-3.5 text-[15px] font-semibold text-white" style={{ background: RED }}>Get early access</button>
+        <Link href="/early-access" className="inline-block rounded-lg px-7 py-3.5 text-[15px] font-semibold text-white no-underline" style={{ background: RED }}>Get early access</Link>
         <p className="mt-3.5 text-xs text-neutral-400">App Store &amp; Google Play — coming soon</p>
       </section>
 

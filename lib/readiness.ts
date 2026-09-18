@@ -19,6 +19,7 @@
 export interface Baseline {
   restingHrBpm: number;      // e.g. 30-day median resting HR
   hrvMs?: number;            // e.g. 30-day median HRV (optional — not all devices)
+  vo2MaxMlKgMin?: number;    // e.g. 30-day estimated VO2 Max in mL/(kg·min)
   typicalSleepHours: number; // the athlete's normal sleep need, e.g. 7.5
 }
 
@@ -28,6 +29,7 @@ export interface ReadinessInputs {
   sleepQuality?: number;      // 0–100 if the wearable provides it
   restingHrBpm?: number;      // this morning's resting HR
   hrvMs?: number;             // this morning's HRV (optional)
+  vo2MaxMlKgMin?: number;     // latest VO2 Max reading (optional)
   // 10-second subjective check-in (1 = terrible, 5 = great):
   soreness?: 1 | 2 | 3 | 4 | 5; // 5 = no soreness
   energy?: 1 | 2 | 3 | 4 | 5;   // 5 = full of energy

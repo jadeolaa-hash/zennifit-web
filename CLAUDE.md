@@ -89,3 +89,7 @@ Both `zenni-app/` and `fitness-tracker/` are excluded via `.gitignore` and
   above.
 - **Phase 4 — Polish & launch**: wearable sync, nutrition tracking, full nav
   (Pricing / About / FAQ), production hardening.
+
+## Third-Party Integrations & Services (One CLI)
+
+The One CLI (`one`) is installed on this machine. It lets you interact with 750+ third-party platforms (Gmail, Slack, Shopify, HubSpot, Stripe, GitHub, etc.) through their APIs. Whenever you need to interact with any third-party platform or external service, use the `one` skill (`.agents/skills/one/SKILL.md`).

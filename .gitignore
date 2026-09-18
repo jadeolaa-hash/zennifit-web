@@ -43,3 +43,12 @@ next-env.d.ts
 # other projects in this repo (not part of the Next.js web app)
 /zenni-app
 /fitness-tracker
+/zenni-app-claude-backup
+/zenni-app-v2
+/zenni-web-restructure
+.claude/
+.expo/
+.tmp-signup.json
+
+.vercel
+.env*

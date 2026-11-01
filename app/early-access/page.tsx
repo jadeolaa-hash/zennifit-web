@@ -23,9 +23,10 @@ import {
   Clock,
   Layers,
   Flame,
-  ArrowLeft
+  ArrowLeft,
+  Trophy
 } from "lucide-react"
-import { supabase } from "@/lib/supabaseClient"
+import { saveEarlyAccessSignup } from "@/lib/earlyAccess"
 
 function EarlyAccessContent() {
   const searchParams = useSearchParams()
@@ -44,6 +45,7 @@ function EarlyAccessContent() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
   const [shortlistNumber] = useState(Math.floor(130 + Math.random() * 50))
 
   useEffect(() => {
@@ -57,23 +59,20 @@ function EarlyAccessContent() {
     if (!formData.name.trim() || !formData.email.trim()) return
 
     setIsSubmitting(true)
+    setSubmitError(false)
 
-    try {
-      await supabase.from("early_access_signups").insert([
-        {
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          interest: `shortlist_${formData.discipline}_${formData.targetGoal}`
-        }
-      ])
-    } catch {
-      // ignore
-    }
+    const saved = await saveEarlyAccessSignup({
+      name: formData.name,
+      email: formData.email,
+      interest: `shortlist_${formData.discipline}_${formData.targetGoal}`
+    })
 
-    setTimeout(() => {
-      setIsSubmitting(false)
+    setIsSubmitting(false)
+    if (saved) {
       setSubmitted(true)
-    }, 1200)
+    } else {
+      setSubmitError(true)
+    }
   }
 
   return (
@@ -455,6 +454,12 @@ function EarlyAccessContent() {
                       />
                     </div>
                   </div>
+
+                  {submitError && (
+                    <p role="alert" className="text-center text-xs text-[#E8605A]">
+                      We couldn&apos;t save your details. Please try again.
+                    </p>
+                  )}
 
                   <div className="flex gap-3 pt-2">
                     <button

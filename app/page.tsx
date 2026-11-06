@@ -1,168 +1,58 @@
-"use client"
+// app/page.tsx — ZenniFitness parent homepage.
+// Lean landing page for zennifitness.com. Links out to the ZenniFit product
+// page at /zennifit. Keep this minimal — the full marketing page lives there.
 
-import React, { useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight, CheckCircle2, ChevronRight, Moon, Activity, HeartPulse, Sparkles } from "lucide-react"
-import { saveEarlyAccessSignup } from "@/lib/earlyAccess"
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArticlesMegaMenu } from '@/components/articles-mega-menu';
 
-// Landing page in the premium app's monochrome system (see zenni-app-claude-backup/constants/theme.ts):
-// pure black canvas, graphite surfaces, flat white logo and type.
-// The site is still pre-launch, so this stays a preview / coming-soon page.
+const RED = '#B01020';
+const SALMON = '#C94A3F';
+const HEAD = { fontStyle: 'italic' as const, fontWeight: 800, letterSpacing: '-0.5px' };
 
-const FEATURES = [
-  { icon: HeartPulse, label: "Recovery", metric: "88", unit: "%", note: "HRV 82 ms · ready to train" },
-  { icon: Moon, label: "Sleep", metric: "7:42", unit: "h", note: "Sleep debt cleared" },
-  { icon: Activity, label: "Strain", metric: "14.2", unit: "", note: "Target 13–16 today" },
-  { icon: Sparkles, label: "AI Coach", metric: "Zone 2", unit: "", note: "8 km steady, cadence 176+" },
-]
-
-export default function ComingSoonPage() {
-  const [email, setEmail] = useState("")
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [submitError, setSubmitError] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email || !email.includes("@")) return
-    setLoading(true)
-    setSubmitError(false)
-    const saved = await saveEarlyAccessSignup({ email, interest: "landing_notify" })
-    setLoading(false)
-    if (saved) {
-      setSubmitted(true)
-    } else {
-      setSubmitError(true)
-    }
-  }
-
+export default function HomePage() {
   return (
-    <main
-      className="min-h-screen bg-black text-white flex flex-col selection:bg-white selection:text-black relative overflow-hidden"
-      style={{ fontFamily: "var(--font-lato), sans-serif" }}
-    >
-      {/* Hero gradient, as on the app's welcome screen (#1c1c1e -> #000) */}
-      <div className="absolute inset-x-0 top-0 h-[70vh] bg-gradient-to-b from-[#1c1c1e] to-black pointer-events-none" />
-
-      {/* ── Header ──────────────────────────────────────────────────────── */}
-      <header className="w-full max-w-6xl mx-auto px-6 h-20 flex items-center justify-between z-20">
+    <main className="min-h-screen bg-white text-neutral-800">
+      {/* Navbar */}
+      <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-neutral-200 bg-white/90 px-8 py-4 backdrop-blur">
         <div className="flex items-center gap-2.5">
-          <Image src="/logo-white.png" alt="" width={28} height={28} priority />
-          <span className="font-black text-lg tracking-tight">ZenniFit</span>
+          <Image src="/zf-icon.png" alt="ZenniFitness" width={36} height={36} priority />
+          <span className="text-[19px] text-neutral-900" style={HEAD}>ZenniFitness</span>
         </div>
-
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#141415] border border-[#1f1f22]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#e6c87a] animate-pulse" />
-          <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#a1a1a6]">Preview</span>
+        <div className="hidden items-center gap-6 md:flex">
+          <Link
+            href="/zennifit"
+            className="rounded-md px-3 py-1.5 text-sm font-semibold transition-colors"
+            style={{ color: RED, background: 'rgba(176,16,32,0.06)' }}
+          >
+            ZenniFit
+          </Link>
+          <ArticlesMegaMenu />
         </div>
-      </header>
+      </nav>
 
-      {/* ── Hero ────────────────────────────────────────────────────────── */}
-      <section className="flex flex-col items-center text-center px-6 pt-10 pb-16 max-w-3xl mx-auto w-full z-10">
-        <Image
-          src="/logo-white.png"
-          alt="ZenniFit dragon emblem"
-          width={168}
-          height={168}
-          priority
-          className="w-32 h-32 sm:w-40 sm:h-40 drop-shadow-[0_20px_40px_rgba(0,0,0,0.65)]"
-        />
-
-        <span className="mt-10 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6e6e73]">
-          Coming soon &middot; Founding athlete cohort
-        </span>
-
-        <h1 className="mt-4 font-black text-6xl sm:text-7xl md:text-8xl tracking-[-0.04em] leading-none text-white">
-          ZenniFit
+      {/* Hero */}
+      <section className="mx-auto flex max-w-3xl flex-col items-center px-8 py-28 text-center">
+        <Image src="/zf-wordmark.png" alt="ZenniFitness" width={240} height={135} className="mb-6 h-auto w-[240px]" priority />
+        <h1 className="m-0 mb-4 text-[40px] leading-[1.15] text-neutral-900" style={HEAD}>
+          Training that adapts to <span style={{ color: SALMON }}>you</span>
         </h1>
-
-        <p className="mt-5 text-[#a1a1a6] text-base sm:text-lg max-w-md leading-relaxed">
-          Recovery, sleep and training in one place, with an AI Coach that reads your data.
+        <p className="m-0 mb-8 max-w-md text-[17px] leading-relaxed text-neutral-600">
+          ZenniFitness builds AI-coached training experiences. Start with ZenniFit — one coach for your runs, lifts and Hyrox.
         </p>
-
-        {/* Notify form */}
-        <div className="w-full max-w-md mt-10">
-          {!submitted ? (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row sm:flex-wrap gap-2.5">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
-                required
-                className="flex-1 px-5 py-3.5 rounded-full bg-[#0f0f10] border border-[#1f1f22] text-white placeholder-[#6e6e73] text-sm focus:outline-none focus:border-[#8e8e93] transition-colors"
-              />
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-6 py-3.5 rounded-full bg-white text-black font-black text-sm tracking-tight active:opacity-70 transition-opacity flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-              >
-                {loading ? "Saving…" : (<>Notify me <ArrowRight className="w-4 h-4" /></>)}
-              </button>
-              {submitError && (
-                <p role="alert" className="sm:basis-full text-center text-xs text-[#e6c87a]">
-                  We couldn&apos;t save your email. Please try again.
-                </p>
-              )}
-            </form>
-          ) : (
-            <div className="p-4 rounded-[20px] bg-[#0f0f10] border border-[#1f1f22]">
-              <div className="flex items-center justify-center gap-2 text-[#7fd1a0] font-bold text-sm mb-1">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>You&apos;re on the list</span>
-              </div>
-              <p className="text-xs text-[#8e8e93]">We&apos;ll email you when early access opens.</p>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/preview/live"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#141415] border border-[#1f1f22] text-sm font-bold text-white hover:bg-[#1c1c1e] transition-colors"
-          >
-            Preview the app <ChevronRight className="w-4 h-4 text-[#8e8e93]" />
-          </Link>
-          <Link
-            href="/early-access"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-bold text-[#a1a1a6] hover:text-white transition-colors"
-          >
-            Early access
-          </Link>
-        </div>
+        <Link
+          href="/zennifit"
+          className="rounded-lg px-7 py-3.5 text-[15px] font-semibold text-white no-underline transition-transform hover:-translate-y-0.5"
+          style={{ background: RED }}
+        >
+          Explore ZenniFit
+        </Link>
       </section>
 
-      {/* ── Feature tiles (graphite cards, as in the app) ───────────────── */}
-      <section className="w-full max-w-5xl mx-auto px-6 pb-20 z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          {FEATURES.map(({ icon: Icon, label, metric, unit, note }) => (
-            <div
-              key={label}
-              className="rounded-[20px] bg-gradient-to-b from-[#141415] to-[#0f0f10] border border-[#1f1f22] p-5 text-left"
-            >
-              <div className="flex items-center gap-2 text-[#8e8e93]">
-                <Icon className="w-4 h-4" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.12em]">{label}</span>
-              </div>
-              <div className="mt-4 font-black text-3xl tracking-tight">
-                {metric}
-                {unit && <span className="text-base text-[#6e6e73] ml-0.5">{unit}</span>}
-              </div>
-              <p className="mt-1 text-xs text-[#6e6e73]">{note}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-4 text-center text-[11px] text-[#6e6e73]">Sample data shown. ZenniFit is in preview.</p>
-      </section>
-
-      {/* ── Footer ──────────────────────────────────────────────────────── */}
-      <footer className="mt-auto w-full max-w-6xl mx-auto px-6 py-6 border-t border-[#1f1f22] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6e6e73] z-20">
-        <span>
-          <span className="font-bold text-[#a1a1a6]">ZenniFit</span> &middot; Precision in every motion.
-        </span>
-        <span>&copy; 2026 ZenniFitness. All rights reserved.</span>
+      {/* Footer */}
+      <footer className="border-t border-neutral-200 px-8 py-8 text-center">
+        <span className="text-[13px] text-neutral-500">© 2026 ZenniFitness. All rights reserved.</span>
       </footer>
     </main>
-  )
+  );
 }

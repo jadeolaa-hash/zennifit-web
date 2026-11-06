@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Lato, Newsreader } from "next/font/google";
+import { Barlow, Geist, Geist_Mono, Lato, Newsreader } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,6 +25,14 @@ const lato = Lato({
   weight: ["400", "700", "900"],
 });
 
+// Brand heading face (Barlow Black Italic), used by the /zennifit landing page.
+const barlow = Barlow({
+  variable: "--font-barlow",
+  subsets: ["latin"],
+  weight: ["900"],
+  style: ["italic"],
+});
+
 export const metadata: Metadata = {
   title: "ZenniFit — Precision in Every Motion",
   description: "On-device neural biomechanics and computer vision fitness protocols.",
@@ -38,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${serifFont.variable} ${lato.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${serifFont.variable} ${lato.variable} ${barlow.variable} antialiased`}
       >
         {children}
       </body>

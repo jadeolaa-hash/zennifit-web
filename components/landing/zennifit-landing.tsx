@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { useGSAP } from "@gsap/react"
 import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react"
 import { saveEarlyAccessSignup } from "@/lib/earlyAccess"
@@ -12,14 +13,14 @@ import { Phone } from "./phone"
 import { AppScreenshot, SCREENSHOTS } from "./app-screenshots"
 import styles from "./landing.module.css"
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP)
 
 // Each step is one "page" of the pinned scroll story. `screen` picks the app screen in the phone.
 const STEPS = [
   {
-    eyebrow: "ZenniFit · Coming soon",
-    title: "Train like you’re being watched.",
-    body: "Recovery, training, health and an AI Coach in one app. Scroll to look inside.",
+    eyebrow: "ZenniFit",
+    title: "Training To Match Your Every Movement",
+    body: "Recover better. Train harder. Track Health, and improve with Zenni AI. All in one app.",
     screen: 0,
     hero: true,
   },
@@ -42,9 +43,9 @@ const STEPS = [
     screen: 3,
   },
   {
-    eyebrow: "04 · AI Coach",
+    eyebrow: "04 · Zenni AI",
     title: "A coach that reads your data.",
-    body: "Your AI Coach checks today’s recovery and sleep debt, explains what it sees, and adjusts your plan to match.",
+    body: "Zenni AI checks today’s recovery and sleep debt, explains what it sees, and adjusts your plan to match.",
     screen: 4,
   },
   {
@@ -65,7 +66,7 @@ const POSES = [
   { rotateY: 16, rotateX: 7, rotateZ: -2, y: 0 },
 ]
 
-const NAV = ["Home", "Train", "Health", "AI Coach", "Social"]
+const NAV = ["Home", "Train", "Health", "Zenni AI", "Social"]
 
 export default function ZenniFitLanding() {
   const root = useRef<HTMLDivElement>(null)
@@ -145,6 +146,27 @@ export default function ZenniFitLanding() {
     { scope: root },
   )
 
+  // "Get early access": glide straight down to the sign-up section. The phone and text
+  // fade out for the trip so the scroll story doesn't play on the way past, then come back.
+  const goToJoin = (e: React.MouseEvent) => {
+    const target = document.getElementById("join")
+    if (!target) return
+    e.preventDefault()
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const story = gsap.utils.toArray<HTMLElement>("[data-skip-fade]")
+    gsap.killTweensOf(window)
+    gsap.to(story, { autoAlpha: 0, duration: reduce ? 0 : 0.25, overwrite: true })
+    gsap.to(window, {
+      scrollTo: { y: target, autoKill: false },
+      duration: reduce ? 0 : 1.6,
+      delay: reduce ? 0 : 0.15,
+      ease: "power2.inOut",
+      onComplete: () => {
+        gsap.set(story, { autoAlpha: 1 })
+      },
+    })
+  }
+
   const goTo = (i: number) => {
     const st = trigger.current
     if (!st) return
@@ -162,11 +184,9 @@ export default function ZenniFitLanding() {
             <span className="font-black text-lg tracking-tight">ZenniFit</span>
           </Link>
           <nav className="flex items-center gap-1 sm:gap-2">
-            <Link href="/preview/live" className="hidden sm:inline-flex px-4 py-2 text-sm font-bold text-white/70 hover:text-white transition-colors">
-              Live preview
-            </Link>
             <a
               href="#join"
+              onClick={goToJoin}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-sm font-black hover:bg-[#ffe3de] transition-colors"
             >
               Get early access
@@ -179,9 +199,10 @@ export default function ZenniFitLanding() {
       <section ref={stage} id="features" className="relative h-[100svh] overflow-hidden" aria-label="App features">
         <div className={styles.ambient} />
 
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 pt-16 grid grid-rows-[minmax(0,1fr)_auto] lg:grid-rows-1 lg:grid-cols-[1fr_1fr] items-center">
+        {/* Text on the left, phone on the right, at every screen size */}
+        <div data-skip-fade className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-10 lg:pb-0 grid grid-cols-[minmax(0,1fr)_140px] sm:grid-cols-[minmax(0,1fr)_230px] md:grid-cols-[minmax(0,1fr)_290px] lg:grid-cols-2 gap-4 sm:gap-8 items-center">
           {/* Phone */}
-          <div className="relative h-full min-h-0 lg:order-2">
+          <div className="relative h-full min-h-0 order-2">
             <div className={styles.phoneArea}>
               <div className={styles.scene}>
                 <div className={styles.halo} />
@@ -200,25 +221,25 @@ export default function ZenniFitLanding() {
           </div>
 
           {/* Copy */}
-          <div className="relative lg:order-1 h-[230px] sm:h-[250px] lg:h-[420px] pb-6 lg:pb-0">
+          <div className="relative order-1 h-full min-h-0">
             {STEPS.map((s, i) => (
               <div
                 key={s.eyebrow}
                 data-step-text
-                className="absolute inset-0 flex flex-col justify-start lg:justify-center text-center lg:text-left"
+                className="absolute inset-0 flex flex-col justify-center text-left"
                 aria-hidden={active !== i}
               >
-                <p data-hero-in={s.hero ? "" : undefined} className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-[#ff8f80]">
+                <p data-hero-in={s.hero ? "" : undefined} className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#ff8f80]">
                   {s.eyebrow}
                 </p>
                 {s.hero ? (
-                  <h1 data-hero-in className={`${styles.heading} ${styles.shine} mt-3 text-[44px] sm:text-6xl lg:text-[88px]`}>
+                  <h1 data-hero-in className={`${styles.heading} ${styles.shine} mt-2 sm:mt-3 text-[27px] sm:text-4xl md:text-5xl lg:text-[68px]`}>
                     {s.title}
                   </h1>
                 ) : (
-                  <h2 className={`${styles.heading} ${styles.shine} mt-3 text-[40px] sm:text-6xl lg:text-[76px]`}>{s.title}</h2>
+                  <h2 className={`${styles.heading} ${styles.shine} mt-2 sm:mt-3 text-[26px] sm:text-4xl md:text-5xl lg:text-[64px]`}>{s.title}</h2>
                 )}
-                <p data-hero-in={s.hero ? "" : undefined} className="mt-4 lg:mt-6 text-sm sm:text-base lg:text-lg text-white/70 max-w-md mx-auto lg:mx-0 leading-relaxed">
+                <p data-hero-in={s.hero ? "" : undefined} className="mt-3 lg:mt-6 text-[13px] sm:text-base lg:text-lg text-white/70 max-w-md leading-relaxed">
                   {s.body}
                 </p>
                 {s.hero && (
@@ -234,6 +255,7 @@ export default function ZenniFitLanding() {
         {/* Step navigation */}
         <nav
           aria-label="Feature steps"
+          data-skip-fade
           className="absolute z-20 bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 lg:bottom-auto lg:left-auto lg:translate-x-0 lg:right-6 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:gap-3"
         >
           {NAV.map((n, i) => {
@@ -265,7 +287,7 @@ export default function ZenniFitLanding() {
       <footer className="relative border-t border-white/10 bg-[#0b0204]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/45">
           <span>
-            <span className="font-bold text-white/70">ZenniFit</span> · Precision in every motion. Sample data shown.
+            <span className="font-bold text-white/70">ZenniFit</span>
           </span>
           <span>&copy; 2026 ZenniFitness. All rights reserved.</span>
         </div>
@@ -296,10 +318,9 @@ function JoinSection() {
         }}
       />
       <div className="relative max-w-2xl mx-auto px-4 sm:px-6 text-center">
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#ff8f80]">Founding athlete cohort</p>
-        <h2 className={`${styles.heading} ${styles.shine} mt-4 text-5xl sm:text-7xl`}>Be first in.</h2>
+        <h2 className={`${styles.heading} ${styles.shine} text-5xl sm:text-7xl`}>Be first in.</h2>
         <p className="mt-5 text-white/70 text-base sm:text-lg">
-          Join the early-access list and we&apos;ll send your invite when ZenniFit opens.
+          Join early-access to be invited as soon as ZenniFit launches
         </p>
 
         <div className="mt-10 max-w-md mx-auto">

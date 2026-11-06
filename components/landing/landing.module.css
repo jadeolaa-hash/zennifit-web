@@ -10,6 +10,12 @@
   color: #fff;
 }
 
+/* Lato for every piece of text on the page (overrides the site default, Geist) */
+.page,
+.page :where(*) {
+  font-family: var(--font-lato), sans-serif;
+}
+
 .ambient {
   position: absolute;
   inset: 0;
@@ -39,13 +45,16 @@
   mask-image: radial-gradient(70% 60% at 60% 45%, #000, transparent 75%);
 }
 
+/* Lato Black, matching the app's display type (Lato_900Black, tight tracking) */
 .heading {
-  font-family: var(--font-barlow), var(--font-lato), sans-serif;
-  font-style: italic;
+  font-family: var(--font-lato), sans-serif;
   font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: 0.92;
-  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  /* Room below the baseline so descenders (g, y, p) are painted by the text shine,
+     with the negative margin keeping the layout where it was */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
 }
 
 /* Metallic shine that drifts across heading text */
@@ -83,12 +92,10 @@
 
 @media (max-height: 860px) { .scene { --s: 0.86; } }
 @media (max-height: 740px) { .scene { --s: 0.74; } }
-@media (max-width: 1023px) {
-  .scene { --s: 0.6; }
-}
-@media (max-width: 1023px) and (max-height: 740px) {
-  .scene { --s: 0.5; }
-}
+/* Below desktop the phone sits in a fixed-width right column beside the text */
+@media (max-width: 1023px) { .scene { --s: 0.78; } }
+@media (max-width: 767px) { .scene { --s: 0.66; } }
+@media (max-width: 639px) { .scene { --s: 0.42; } }
 
 .halo {
   position: absolute;
@@ -128,66 +135,91 @@
   will-change: transform;
 }
 
+/* Brushed aluminium frame (silver finish), lit from the left */
 .slice,
 .back {
   position: absolute;
   inset: 0;
-  border-radius: 50px;
-  background: linear-gradient(90deg, #121214 0%, #3b3b40 18%, #7a7a82 48%, #3b3b40 78%, #121214 100%);
+  border-radius: 54px;
+  background: linear-gradient(90deg, #6f7178 0%, #c9ccd2 10%, #f1f2f4 22%, #a9acb3 40%, #8a8d94 60%, #d7d9de 82%, #75777e 100%);
 }
 
 .back {
-  background: linear-gradient(160deg, #2a0a0f 0%, #140508 60%, #0b0204 100%);
+  background: linear-gradient(160deg, #d9dbe0 0%, #b9bcc3 45%, #9a9da4 100%);
   box-shadow: 0 50px 90px rgba(0, 0, 0, 0.6);
 }
 
 .btnAction,
 .btnVolUp,
 .btnVolDown,
-.btnPower {
+.btnSide,
+.btnCamera {
   position: absolute;
   width: 4px;
   border-radius: 2px;
-  background: linear-gradient(180deg, #5a5a62, #2a2a2e);
+  background: linear-gradient(180deg, #e6e8ec, #9fa2a9);
 }
 
-.btnAction { left: -3px; top: 112px; height: 30px; }
-.btnVolUp { left: -3px; top: 160px; height: 52px; }
-.btnVolDown { left: -3px; top: 224px; height: 52px; }
-.btnPower { right: -3px; top: 180px; height: 80px; }
+/* Left: Action button and volume. Right: side button and Camera Control. */
+.btnAction { left: -3px; top: 124px; height: 26px; }
+.btnVolUp { left: -3px; top: 170px; height: 46px; }
+.btnVolDown { left: -3px; top: 228px; height: 46px; }
+.btnSide { right: -3px; top: 186px; height: 70px; }
+.btnCamera { right: -2px; top: 330px; height: 42px; background: linear-gradient(180deg, #5d6068, #2e3036); }
 
+/* Front: very thin, even black bezel inside a polished edge */
 .face {
   position: absolute;
   inset: 0;
-  border-radius: 50px;
-  padding: 9px;
-  background: #050505;
+  border-radius: 54px;
+  padding: 5px;
+  background: #020202;
   box-shadow:
-    inset 0 0 0 1.5px rgba(255, 255, 255, 0.22),
-    inset 0 0 0 3px #1a1a1d,
-    0 0 0 1px rgba(255, 255, 255, 0.06);
+    0 0 0 1.5px #c9ccd2,
+    0 0 0 2.5px rgba(255, 255, 255, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .screen {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 41px;
+  border-radius: 49px;
   overflow: hidden;
   background: #000;
   font-family: var(--font-lato), sans-serif;
 }
 
+/* Dynamic Island */
 .island {
   position: absolute;
-  top: 10px;
+  top: 8px;
   left: 50%;
-  width: 92px;
+  width: 88px;
   height: 26px;
   transform: translateX(-50%);
   border-radius: 9999px;
   background: #000;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.04);
   z-index: 40;
+}
+
+/* Camera lens glint inside the island */
+.island::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 35%, #2b3a55 0%, #0b0f18 60%, #000 100%);
+}
+
+/* iOS status bar type (Lato, like the rest of the page) */
+.statusBar {
+  font-feature-settings: "tnum";
 }
 
 /* Glass glare. GSAP sweeps it across on each screen change. */

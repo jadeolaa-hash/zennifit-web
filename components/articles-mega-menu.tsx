@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { ARTICLE_CATEGORIES } from '@/lib/article-categories';
 
-const RED = '#B01020';
+const RED = '#E0303D';
 
-export function ArticlesMegaMenu() {
+export function ArticlesMegaMenu({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,36 +39,36 @@ export function ArticlesMegaMenu() {
         onFocus={() => setOpen(true)}
         aria-expanded={open}
         aria-haspopup="true"
-        className="flex items-center gap-1 text-sm text-neutral-600 transition-colors hover:text-neutral-900"
+        className={className}
       >
         Articles
         <ChevronDown size={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
 
       {open && (
-        <div className="absolute left-1/2 top-full z-50 mt-3 w-[560px] max-w-[90vw] -translate-x-1/2 rounded-2xl border border-neutral-200 bg-white p-5 text-left shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
-          <div className="grid grid-cols-2 gap-1">
+        <div className="absolute right-0 top-full z-50 mt-3 w-[560px] max-w-[calc(100vw-2rem)] rounded-2xl border border-white/10 bg-[#0d0d0d] p-5 text-left normal-case tracking-normal shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+          <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
             {ARTICLE_CATEGORIES.map(({ slug, label, description, icon: Icon }) => (
               <Link
                 key={slug}
                 href={`/articles/${slug}`}
                 onClick={() => setOpen(false)}
-                className="flex items-start gap-3 rounded-xl p-3 no-underline transition-colors hover:bg-neutral-50"
+                className="flex items-start gap-3 rounded-xl p-3 no-underline transition-colors hover:bg-white/5"
               >
                 <div
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
-                  style={{ background: 'rgba(176,16,32,0.07)' }}
+                  style={{ background: 'rgba(224,48,61,0.12)' }}
                 >
                   <Icon size={18} color={RED} />
                 </div>
                 <div>
-                  <p className="m-0 text-[13.5px] font-semibold text-neutral-900">{label}</p>
-                  <p className="m-0 mt-0.5 text-xs leading-snug text-neutral-500">{description}</p>
+                  <p className="m-0 text-[14px] font-semibold text-white">{label}</p>
+                  <p className="m-0 mt-0.5 text-xs leading-snug text-white/55">{description}</p>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="mt-2 border-t border-neutral-100 pt-3">
+          <div className="mt-2 border-t border-white/10 pt-3">
             <Link
               href="/articles"
               onClick={() => setOpen(false)}

@@ -10,10 +10,10 @@
   color: #fff;
 }
 
-/* Lato for every piece of text on the page (overrides the site default, Geist) */
+/* Barlow for every piece of text on the page */
 .page,
 .page :where(*) {
-  font-family: var(--font-lato), sans-serif;
+  font-family: var(--font-barlow), sans-serif;
 }
 
 .ambient {
@@ -45,9 +45,9 @@
   mask-image: radial-gradient(70% 60% at 60% 45%, #000, transparent 75%);
 }
 
-/* Lato Black, matching the app's display type (Lato_900Black, tight tracking) */
+/* Barlow Black for display type, tight tracking */
 .heading {
-  font-family: var(--font-lato), sans-serif;
+  font-family: var(--font-barlow), sans-serif;
   font-weight: 900;
   letter-spacing: -0.035em;
   line-height: 1.06;
@@ -187,7 +187,7 @@
   border-radius: 49px;
   overflow: hidden;
   background: #000;
-  font-family: var(--font-lato), sans-serif;
+  font-family: var(--font-barlow), sans-serif;
 }
 
 /* Dynamic Island */

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Barlow, Geist, Geist_Mono, Lato, Newsreader } from "next/font/google";
+import { Barlow, Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,24 +18,17 @@ const serifFont = Newsreader({
   style: ["normal", "italic"],
 });
 
-// Matches the premium app's type (Lato 400/700/900).
-const lato = Lato({
-  variable: "--font-lato",
-  subsets: ["latin"],
-  weight: ["400", "700", "900"],
-});
-
-// Brand heading face (Barlow Black Italic), used by the /zennifit landing page.
+// Site-wide brand face: Barlow for body text, Barlow Black (900) for headings.
 const barlow = Barlow({
   variable: "--font-barlow",
   subsets: ["latin"],
-  weight: ["900"],
-  style: ["italic"],
+  weight: ["400", "500", "600", "700", "900"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "ZenniFit — Precision in Every Motion",
-  description: "On-device neural biomechanics and computer vision fitness protocols.",
+  title: "ZenniFitness — ZenniFit app and Zenni Fitness shop",
+  description: "Home of ZenniFit, the AI-coached training app, and the Zenni Fitness shop.",
 };
 
 export default function RootLayout({
@@ -46,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${serifFont.variable} ${lato.variable} ${barlow.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${serifFont.variable} ${barlow.variable} font-sans antialiased`}
       >
         {children}
       </body>

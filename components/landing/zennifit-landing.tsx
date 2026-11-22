@@ -9,6 +9,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { useGSAP } from "@gsap/react"
 import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react"
 import { saveEarlyAccessSignup } from "@/lib/earlyAccess"
+import { SHOP_URL } from "@/components/site-header"
 import { Phone } from "./phone"
 import { AppScreenshot, SCREENSHOTS } from "./app-screenshots"
 import styles from "./landing.module.css"
@@ -175,7 +176,7 @@ export default function ZenniFitLanding() {
   }
 
   return (
-    <div ref={root} className={`${styles.page} relative min-h-screen overflow-x-clip`} style={{ fontFamily: "var(--font-lato), sans-serif" }}>
+    <div ref={root} className={`${styles.page} relative min-h-screen overflow-x-clip`} style={{ fontFamily: "var(--font-barlow), sans-serif" }}>
       {/* ── Header ─────────────────────────────────────────────────── */}
       <header className="fixed top-0 inset-x-0 z-50 bg-gradient-to-b from-[#0b0204]/85 to-[#0b0204]/40 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -183,7 +184,13 @@ export default function ZenniFitLanding() {
             <Image src="/logo-white.png" alt="" width={26} height={26} priority />
             <span className="font-black text-lg tracking-tight">ZenniFit</span>
           </Link>
-          <nav className="flex items-center gap-1 sm:gap-2">
+          <nav className="flex items-center gap-3 sm:gap-5">
+            <Link href="/" className="hidden sm:inline text-sm font-bold uppercase tracking-[0.08em] text-white/70 hover:text-white transition-colors">
+              Home
+            </Link>
+            <a href={SHOP_URL} className="text-sm font-bold uppercase tracking-[0.08em] text-white/70 hover:text-white transition-colors">
+              Shop
+            </a>
             <a
               href="#join"
               onClick={goToJoin}

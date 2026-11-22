@@ -17,7 +17,7 @@ export default function LiveAppPreviewPage() {
   return (
     <div
       className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4 lg:p-8 relative"
-      style={{ fontFamily: "var(--font-lato), sans-serif" }}
+      style={{ fontFamily: "var(--font-barlow), sans-serif" }}
     >
       {/* Hero gradient, matching the landing page */}
       <div className="absolute inset-x-0 top-0 h-[70vh] bg-gradient-to-b from-[#1c1c1e] to-black pointer-events-none" />

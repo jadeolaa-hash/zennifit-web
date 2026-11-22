@@ -1,0 +1,165 @@
+/* Zenni Fitness — animations for the Shopify store (shop.zennifitness.com)
+
+   Matches the motion on zennifitness.com: pages fade in, buttons lift with a
+   red glow and a light sweep, product cards rise on hover, menu links get a
+   red underline. Written for Shopify's Dawn theme and other Online Store 2.0
+   themes; the selectors cover the common button and card classes.
+
+   This file is NOT part of the Next.js site build. To install it:
+   1. Shopify admin > Online Store > Themes > on your live theme, ... > Edit code
+   2. In "Assets", Add a new asset > Create a blank file > zenni-animations.css
+      and paste this whole file in.
+   3. Open layout/theme.liquid and, just before </head>, add:
+        {{ 'zenni-animations.css' | asset_url | stylesheet_tag }}
+   4. Save, then preview the store.
+   To remove it, delete that line from theme.liquid. */
+
+@keyframes zf-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zf-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes zf-shine {
+  from { transform: translateX(-120%) skewX(-20deg); }
+  to { transform: translateX(220%) skewX(-20deg); }
+}
+
+/* Page transition: each page fades in as it loads */
+#MainContent,
+main {
+  animation: zf-page-in 450ms ease-out both;
+}
+
+/* Product grids rise in, staggered */
+.product-grid > .grid__item,
+.collection-list > .grid__item {
+  animation: zf-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.product-grid > .grid__item:nth-child(2),
+.collection-list > .grid__item:nth-child(2) { animation-delay: 80ms; }
+.product-grid > .grid__item:nth-child(3),
+.collection-list > .grid__item:nth-child(3) { animation-delay: 160ms; }
+.product-grid > .grid__item:nth-child(4),
+.collection-list > .grid__item:nth-child(4) { animation-delay: 240ms; }
+.product-grid > .grid__item:nth-child(n + 5),
+.collection-list > .grid__item:nth-child(n + 5) { animation-delay: 320ms; }
+
+/* Buttons: lift and red glow on hover, a light sweep across, press-in on click */
+.button,
+.btn,
+.shopify-payment-button__button,
+.product-form__submit,
+.cart__checkout-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 220ms ease, background-color 220ms ease;
+}
+.button::before,
+.btn::before,
+.product-form__submit::before,
+.cart__checkout-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: translateX(-120%) skewX(-20deg);
+  pointer-events: none;
+}
+.button:hover,
+.btn:hover,
+.shopify-payment-button__button:hover,
+.product-form__submit:hover,
+.cart__checkout-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -10px rgba(224, 48, 61, 0.7);
+}
+.button:hover::before,
+.btn:hover::before,
+.product-form__submit:hover::before,
+.cart__checkout-button:hover::before {
+  animation: zf-shine 700ms ease-out;
+}
+.button:active,
+.btn:active,
+.shopify-payment-button__button:active,
+.product-form__submit:active,
+.cart__checkout-button:active {
+  transform: translateY(0) scale(0.96);
+  transition-duration: 80ms;
+}
+
+/* Product and collection cards: lift with a red edge glow */
+.card-wrapper .card,
+.product-card-wrapper .card {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease;
+}
+.card-wrapper:hover .card,
+.product-card-wrapper:hover .card {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -24px rgba(224, 48, 61, 0.45);
+}
+
+/* Menu links: a red underline that draws in from the left */
+.header__menu-item span,
+.list-menu__item span {
+  position: relative;
+}
+.header__menu-item span::after,
+.list-menu__item span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: #e0303d;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.header__menu-item:hover span::after,
+.list-menu__item:hover span::after {
+  transform: scaleX(1);
+}
+
+/* Visitors who ask for reduced motion get no animation */
+@media (prefers-reduced-motion: reduce) {
+  #MainContent,
+  main,
+  .product-grid > .grid__item,
+  .collection-list > .grid__item,
+  .button:hover::before,
+  .btn:hover::before,
+  .product-form__submit:hover::before,
+  .cart__checkout-button:hover::before {
+    animation: none;
+  }
+  .button,
+  .btn,
+  .shopify-payment-button__button,
+  .product-form__submit,
+  .cart__checkout-button,
+  .card-wrapper .card,
+  .product-card-wrapper .card,
+  .header__menu-item span::after,
+  .list-menu__item span::after {
+    transition: none;
+  }
+  .button:hover,
+  .btn:hover,
+  .shopify-payment-button__button:hover,
+  .product-form__submit:hover,
+  .cart__checkout-button:hover,
+  .card-wrapper:hover .card,
+  .product-card-wrapper:hover .card {
+    transform: none;
+  }
+}

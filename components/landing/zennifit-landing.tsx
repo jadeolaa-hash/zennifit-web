@@ -185,16 +185,16 @@ export default function ZenniFitLanding() {
             <span className="font-black text-lg tracking-tight">ZenniFit</span>
           </Link>
           <nav className="flex items-center gap-3 sm:gap-5">
-            <Link href="/" className="hidden sm:inline text-sm font-bold uppercase tracking-[0.08em] text-white/70 hover:text-white transition-colors">
+            <Link href="/" className="zf-link hidden sm:inline text-sm font-bold uppercase tracking-[0.08em] text-white/70 hover:text-white transition-colors">
               Home
             </Link>
-            <a href={SHOP_URL} className="text-sm font-bold uppercase tracking-[0.08em] text-white/70 hover:text-white transition-colors">
+            <a href={SHOP_URL} className="zf-link text-sm font-bold uppercase tracking-[0.08em] text-white/70 hover:text-white transition-colors">
               Shop
             </a>
             <a
               href="#join"
               onClick={goToJoin}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-sm font-black hover:bg-[#ffe3de] transition-colors"
+              className="zf-btn inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-sm font-black hover:bg-[#ffe3de]"
             >
               Get early access
             </a>
@@ -346,7 +346,7 @@ function JoinSection() {
               <button
                 type="submit"
                 disabled={state === "saving"}
-                className="px-6 py-3.5 rounded-full bg-white text-black font-black text-sm flex items-center justify-center gap-2 hover:bg-[#ffe3de] transition-colors cursor-pointer disabled:opacity-50"
+                className="zf-btn px-6 py-3.5 rounded-full bg-white text-black font-black text-sm flex items-center justify-center gap-2 hover:bg-[#ffe3de] cursor-pointer disabled:opacity-50"
               >
                 {state === "saving" ? "Saving…" : (<>Get early access <ArrowRight className="w-4 h-4" /></>)}
               </button>

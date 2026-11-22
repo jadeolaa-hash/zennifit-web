@@ -1,0 +1,5 @@
+// Re-mounts on every navigation, so each page fades in as it arrives.
+
+export default function Template({ children }: { children: React.ReactNode }) {
+  return <div className="zf-page">{children}</div>
+}

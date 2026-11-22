@@ -33,7 +33,7 @@ export default function ArticlesPage() {
             <Link
               key={slug}
               href={`/articles/${slug}`}
-              className="group rounded-2xl border border-white/10 bg-[#0d0d0d] p-6 no-underline transition-all hover:-translate-y-1 hover:border-[#B01020]"
+              className="zf-card group rounded-2xl border border-white/10 bg-[#0d0d0d] p-6 no-underline"
             >
               <div
                 className="mb-4 flex h-11 w-11 items-center justify-center rounded-[12px]"

@@ -6,14 +6,14 @@ import { ArticlesMegaMenu } from '@/components/articles-mega-menu';
 
 export const SHOP_URL = 'https://shop.zennifitness.com';
 
-const LINK = 'text-[15px] font-semibold uppercase tracking-[0.08em] text-white/75 no-underline transition-colors hover:text-white';
+const LINK = 'zf-link text-[15px] font-semibold uppercase tracking-[0.08em] text-white/75 no-underline transition-colors hover:text-white';
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 sm:px-8 sm:py-4">
-        <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <Image src="/zf-icon.png" alt="" width={36} height={36} priority />
+        <Link href="/" className="group flex items-center gap-2.5 no-underline">
+          <Image src="/dragon-crimson.png" alt="" width={44} height={44} className="h-11 w-11 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" priority />
           <span className="text-[20px] font-black italic uppercase tracking-tight text-white">
             Zenni<span className="text-[#E0303D]">Fitness</span>
           </span>

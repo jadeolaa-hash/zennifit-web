@@ -28,6 +28,12 @@ export default function HomePage() {
             ZenniFit
           </Link>
           <ArticlesMegaMenu />
+          <a
+            href="https://shop.zennifitness.com"
+            className="text-sm text-neutral-600 transition-colors hover:text-neutral-900"
+          >
+            Shop
+          </a>
         </div>
       </nav>
 
